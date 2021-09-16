@@ -19,8 +19,8 @@ class PreviewActivity : AppCompatActivity() {
     }
 
     private fun displayMessage() {
-        val message = intent.getSerializableExtra("Message") as Message
-        val messagePreviewText = """"
+        message = intent.getSerializableExtra("Message") as Message
+        messagePreviewText = """"
                 Hi ${message.contactName},
                 
                 My name is ${message.myDisplayName} and I am a ${message.getFullJobDescription()}.
@@ -39,9 +39,10 @@ class PreviewActivity : AppCompatActivity() {
     private fun setupButton() {
         button_send_message.setOnClickListener {
             val intent = Intent(Intent.ACTION_SENDTO).apply {
-                data = Uri.parse("smsto: ${message.contactNumber}") //This ensures only SMS apps respond
+                data = Uri.parse("smsto: ${message.contactNumber}")
                 putExtra("sms_body", messagePreviewText)
             }
+            startActivity(intent)
         }
     }
 }
